@@ -24,7 +24,7 @@ ENV JAVA_OPTS \
 
 # HEALTHCHECK
 HEALTHCHECK --interval=30s --timeout=3s \
-  CMD curl -sf localhost:3000/status || exit 1
+  CMD curl -sf localhost:3000/healthz || exit 1
 
 EXPOSE 3000
 CMD ["/server/bin/wolt"]
