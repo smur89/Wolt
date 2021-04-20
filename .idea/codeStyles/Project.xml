@@ -1,0 +1,25 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <ScalaCodeStyleSettings>
+      <option name="importLayout">
+        <array>
+          <option value="java" />
+          <option value="_______ blank line _______" />
+          <option value="all other imports" />
+          <option value="_______ blank line _______" />
+          <option value="cats" />
+          <option value="cats.effect" />
+          <option value="_______ blank line _______" />
+          <option value="cats.syntax" />
+          <option value="cats.effect.syntax" />
+          <option value="_______ blank line _______" />
+          <option value="cats.instances" />
+          <option value="_______ blank line _______" />
+          <option value="scala" />
+        </array>
+      </option>
+      <option name="SCALAFMT_REFORMAT_ON_FILES_SAVE" value="true" />
+      <option name="FORMATTER" value="1" />
+    </ScalaCodeStyleSettings>
+  </code_scheme>
+</component>

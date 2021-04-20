@@ -1,0 +1,15 @@
+repos:
+- repo: git://github.com/coyainsurance/pre-commit-scalafmt
+  rev: master
+  hooks:
+  - id: scalafmt
+    args: [-s, -v2.7.5]
+
+- repo: git://github.com/pre-commit/pre-commit-hooks
+  rev: v2.5.0
+  hooks:
+    - id: check-yaml
+    - id: end-of-file-fixer
+    - id: trailing-whitespace
+    - id: check-case-conflict
+    - id: check-merge-conflict
