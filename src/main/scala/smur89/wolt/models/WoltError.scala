@@ -1,6 +1,7 @@
 package smur89.wolt.models
 
 import cats.Show
+import cats.data.NonEmptyList
 
 import scala.util.control.NoStackTrace
 
@@ -10,4 +11,4 @@ object WoltError {
   implicit val value: Show[WoltError] = (e: WoltError) => e.message
 }
 
-final case class ValidationError(override val message: String) extends WoltError(message)
+final case class ValidationError(errors: NonEmptyList[String]) extends WoltError(errors.toList.mkString(", "))

@@ -13,13 +13,13 @@ import cats.{Applicative, Defer}
 import cats.syntax.applicative._
 import cats.syntax.apply._
 
-object HealthCheck {
+object HealthCheckRoute {
 
   def apply[F[_]: Applicative: Defer](logger: Logger[F], health: HealthCheckAlgebra[F]): RoutesAlgebra[F] =
     new RoutesAlgebra[F] {
-      override def routes: HttpRoutes[F] =
+      override def impl: HttpRoutes[F] =
         HttpRoutes.of[F] { case GET -> Root / "healthz" =>
-          logger.trace("Checking Health...") *> health.status *> Response[F](Status.Ok).pure[F]
+          logger.trace("Checking Health...") *> health.status *> Response[F](Status.NoContent).pure[F]
         }
     }
 
