@@ -5,6 +5,8 @@ object Dependencies {
     val cats = "2.5.0"
     val `cats-effect` = "2.4.1"
     val `cats-testing` = "0.5.2"
+    val circe = "0.13.0"
+    val enumeratumCirce = "1.6.1"
     val http4s = "0.21.22"
     val odin = "0.11.0"
     val scalatest = "3.2.7"
@@ -13,6 +15,14 @@ object Dependencies {
   val cats = Seq("org.typelevel" %% "cats-core" % versions.cats)
 
   val `cats-effect` = Seq("org.typelevel" %% "cats-effect" % versions.`cats-effect`)
+
+  val circe: Seq[ModuleID] = Seq(
+    "io.circe" %% "circe-core",
+    "io.circe" %% "circe-generic",
+    "io.circe" %% "circe-parser"
+  ).map(_ % versions.circe)
+
+  val enumeratumCirce = Seq("com.beachape" %% "enumeratum-circe" % versions.enumeratumCirce)
 
   val http4s: Seq[ModuleID] = Seq(
     "org.http4s" %% "http4s-blaze-server",

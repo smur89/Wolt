@@ -7,6 +7,7 @@ import org.http4s.{Method, Request, Status}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AsyncWordSpec
 import smur89.wolt.interpreters.routes.HealthCheck
+import smur89.wolt.interpreters.services.HealthCheckService
 
 import cats.effect.IO
 import cats.effect.testing.scalatest.AsyncIOSpec
@@ -17,9 +18,9 @@ class RootRoutesTest extends AsyncWordSpec with AsyncIOSpec with Matchers {
   "HealthCheck endpoint" should {
     "return Status 200" in {
       val healthRequest = Request[IO](Method.GET, uri"/healthz")
-      val healthCheck = HealthCheck[IO]
+      val healthCheck = HealthCheckService[IO]
 
-      val response = RootRoutes(logger, healthCheck).orNotFound(healthRequest)
+      val response = HealthCheck(logger, healthCheck).routes.orNotFound(healthRequest)
       response.asserting(_.status should equal(Status.Ok))
     }
   }

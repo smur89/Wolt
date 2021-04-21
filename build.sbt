@@ -1,4 +1,5 @@
 import Dependencies._
+import sbt.addCompilerPlugin
 
 Global / version := "0.1"
 
@@ -12,7 +13,10 @@ lazy val root = (project in file("."))
     libraryDependencies ++=
       cats ++
         `cats-effect` ++
+        circe ++
+        enumeratumCirce ++
         http4s ++
         logger ++
-        tests
+        tests,
+    addCompilerPlugin("org.typelevel" % "kind-projector_2.12.10" % "0.11.3")
   )
