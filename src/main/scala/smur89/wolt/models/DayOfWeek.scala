@@ -16,4 +16,8 @@ object DayOfWeek extends Enum[DayOfWeek] with CirceKeyEnum[DayOfWeek] {
   case object Sunday extends DayOfWeek
 
   override def values: immutable.IndexedSeq[DayOfWeek] = findValues
+
+  implicit val ordering = new Ordering[DayOfWeek] {
+    override def compare(x: DayOfWeek, y: DayOfWeek): Int = DayOfWeek.indexOf(x) - DayOfWeek.indexOf(y)
+  }
 }

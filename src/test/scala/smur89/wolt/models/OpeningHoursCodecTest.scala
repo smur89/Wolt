@@ -7,16 +7,16 @@ import org.scalatest.Succeeded
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import smur89.wolt.models.DayOfWeek.{Friday, Monday, Saturday, Sunday, Thursday, Tuesday, Wednesday}
-import smur89.wolt.models.OpeningHours._
+import smur89.wolt.models.OpeningHour._
 import smur89.wolt.models.Status.{Close, Open}
 
-class OpeningHoursCodecTest extends AnyWordSpec with Matchers {
+class OpeningHourCodecTest extends AnyWordSpec with Matchers {
   val json: String = scala.io.Source.fromResource("request/sample.json").getLines().mkString
 
   "PrettyPrint endpoint" should {
     "Parses the test json and retains list ordering" in {
       parser
-        .decode[OpeningHoursRequest](json)
+        .decode[OpeningHourRequest](json)
         .fold(
           e => fail(e.getMessage),
           openingHours => {
@@ -25,26 +25,26 @@ class OpeningHoursCodecTest extends AnyWordSpec with Matchers {
               openingHours.getOrElse(Monday, fail("Monday did not contain opening hours")) shouldBe empty,
               openingHours
                 .getOrElse(Tuesday, fail("Tuesday did not contain opening hours"))
-                should contain inOrder (OpeningHours(Open, LocalTime.of(10, 0)), OpeningHours(Close, LocalTime.of(18, 0))),
+                should contain inOrder (OpeningHour(Open, LocalTime.of(10, 0)), OpeningHour(Close, LocalTime.of(18, 0))),
               openingHours.getOrElse(Wednesday, fail("Wednesday did not contain opening hours")) shouldBe empty,
               openingHours
                 .getOrElse(Thursday, fail("Thursday did not contain opening hours"))
-                should contain inOrder (OpeningHours(Open, LocalTime.of(10, 0)), OpeningHours(Close, LocalTime.of(18, 0))),
+                should contain inOrder (OpeningHour(Open, LocalTime.of(10, 0)), OpeningHour(Close, LocalTime.of(18, 0))),
               openingHours
                 .getOrElse(Friday, fail("Friday did not contain opening hours"))
-                shouldBe List(OpeningHours(Open, LocalTime.of(10, 0))),
+                shouldBe List(OpeningHour(Open, LocalTime.of(10, 0))),
               openingHours
                 .getOrElse(Saturday, fail("Saturday did not contain opening hours"))
                 should contain inOrder (
-                  OpeningHours(Close, LocalTime.of(1, 0)),
-                  OpeningHours(Open, LocalTime.of(10, 0))
+                  OpeningHour(Close, LocalTime.of(1, 0)),
+                  OpeningHour(Open, LocalTime.of(10, 0))
                 ),
               openingHours
                 .getOrElse(Sunday, fail("Sunday did not contain opening hours"))
                 should contain inOrder (
-                  OpeningHours(Close, LocalTime.of(1, 0)),
-                  OpeningHours(Open, LocalTime.of(12, 0)),
-                  OpeningHours(Close, LocalTime.of(21, 0))
+                  OpeningHour(Close, LocalTime.of(1, 0)),
+                  OpeningHour(Open, LocalTime.of(12, 0)),
+                  OpeningHour(Close, LocalTime.of(21, 0))
                 )
             )
           }
