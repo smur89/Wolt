@@ -24,7 +24,7 @@ sbt clean compile stage && \
 ```
 ${baseUrl}/healthz
 ```
-When the service is up, this endpoint will return `200 OK` to indicate it is healthy.
+When the service is up, this endpoint will return `204 No Content` to indicate it is healthy.
 
 If run using the Docker image, this is also used by the Docker `HEALTHCHECK`.
 
