@@ -8,7 +8,7 @@ as an input and outputs hours in more human readable format.
 ## Input
 Input JSON consist of keys indicating days of a week and corresponding opening hours as
 values. One JSON file includes data for one restaurant.
-```
+```json
 {
     <dayofweek>: <opening hours>
     <dayofweek>: <opening hours>
@@ -26,7 +26,7 @@ e.g. 32400 = 9 AM , 37800 = 10.30 AM,
   * max value is 86399 = 11.59:59 PM
   * Example: on Mondays a restaurant is open from 9 AM to 8 PM
 
-```
+```json
 {
    "monday":[
       {
@@ -58,7 +58,7 @@ is always a part of the day when a restaurant was opened (e.g. Sunday 8 PM - 1 A
 A restaurant is open:
 Friday: 6 PM - 1 AM
 Saturday: 9 AM -11 AM, 4 PM - 11 PM
-```
+```json
 {
    "friday":[
       {
@@ -130,7 +130,7 @@ A good check before sending you task is to clone the repository / unzip the Zip 
 
 ## Full Example
   Input
-```
+```json
  {
    "monday":[
 

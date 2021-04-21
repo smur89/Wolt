@@ -48,3 +48,119 @@ echo '{   "monday":[   ],   "tuesday":[      {         "type":"open",         "v
 
 
 ## Part 2: Json Format
+> Is the current JSON structure the best way to store that kind of data or can you come up with a better version?
+### Seconds since Epoch for time
+It seems to me that there is no benefit to serialising the times as a Unix timestamp in seconds.
+Though it is trivial to define a `Deserialiser` for this format, it only serves to obfuscate the data in the `Json`.
+
+I would suggest a simple representation of `hh:mm` would be clearer both in the `Json` and would likely get a `Deserialiser` in this case "for free"
+e.g.
+```json
+{
+   "friday":[
+      {
+         "type":"open",
+         "value":"18:00"
+      }
+   ],
+   "saturday":[
+      {
+         "type":"close",
+         "value":"01:00"
+      },
+      {
+         "type":"open",
+         "value":"09:00"
+      },
+      {
+         "type":"close",
+         "value":"11:00"
+      },
+      {
+         "type":"open",
+         "value":"16:00"
+      },
+      {
+         "type":"close",
+         "value":"23:00"
+      }
+   ]
+}
+```
+There is also a question of whether the TimeZone of the opening hours should be included in the `Json`.
+However, I assume that this is explicitly intended to be decoupled and would be based on the restaurant's location - This makes sense - we could also always serialise to UTC.
+Though it should not be left up to the App/Browser to derive the user's timezone in this case.
+
+### Order dependant arrays
+In the current structure, we rely on the assumption that the arrays are in order, but there is nothing in the json which enforces or denotes the order explicitly.
+
+I would suggest to modify the structure here in a way which explicitly denotes the order of the elements.
+e.g.
+```json
+{
+  "friday":{
+    "1":{
+      "type":"open",
+      "value":"18:00"
+    }
+  },
+  "saturday":{
+    "1":{
+      "type":"close",
+      "value":"01:00"
+    },
+    "2":{
+      "type":"open",
+      "value":"09:00"
+    },
+    "3":{
+      "type":"close",
+      "value":"11:00"
+    },
+    "4":{
+      "type":"open",
+      "value":"16:00"
+    },
+    "5":{
+      "type":"close",
+      "value":"23:00"
+    }
+  }
+}
+```
+
+### Naming
+Both `type` and `value` have no semantic meaning without the context required. Why not give these meaningful names?
+e.g.
+```json
+{
+  "friday":{
+    "1":{
+      "action":"open",
+      "time":"18:00"
+    }
+  },
+  "saturday":{
+    "1":{
+      "action":"close",
+      "time":"01:00"
+    },
+    "2":{
+      "action":"open",
+      "time":"09:00"
+    },
+    "3":{
+      "action":"close",
+      "time":"11:00"
+    },
+    "4":{
+      "action":"open",
+      "time":"16:00"
+    },
+    "5":{
+      "action":"close",
+      "time":"23:00"
+    }
+  }
+}
+```
